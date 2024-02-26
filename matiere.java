@@ -9,6 +9,9 @@ public class matiere {
         System.out.println("Donner le nom de la matiere:");
         name = scanner.next();
     }
+    public matiere(String name) {
+        this.name = name;
+    }
     public String getName() {
         return name;
     }
