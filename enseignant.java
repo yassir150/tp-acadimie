@@ -8,11 +8,11 @@ public class enseignant extends personne {
 	public enseignant () {
 		super(check);
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Donner le  date-prix-fonction ");
+		System.out.println("Donner le  date-prix-fonction :");
 		dpf=sc.nextInt();
-		System.out.println("Donner l'indice ");
+		System.out.println("Donner l'indice :");
 		indice=sc.nextInt();
-		System.out.println("Donner la matiere");
+		System.out.println("Donner la matiere etudie par l'enseignant :");
 		mat = sc.next();		
 	}
 	public void ajout_notes(departement depa){

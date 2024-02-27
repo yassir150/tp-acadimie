@@ -12,9 +12,9 @@ public class departement {
 
     public departement() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Donner le nom du departement ");
+        System.out.println("Donner le nom du departement :");
         name=sc.next();
-        System.out.println("Donner le nom du responsable ");
+        System.out.println("Donner le nom du responsable :");
         responsable = sc.next();
         this.etu=new Vector<etudiant>();
         this.ens=new Vector<enseignant>();
@@ -46,16 +46,11 @@ public class departement {
             etu.add(etudiant);
 
             System.out.println("Donner le nombre de matiere :(max "+ma.size()+")");
-            // for(int j=0 ; j < ma.size() ;  i++){ 
-            //     String NAME = ma.get(i).getName();
-            //     System.out.println(NAME +"\n");
-                
-            // }
-            int j=1;
+            System.out.println("les matiers sont :");
             for (Map.Entry<String, matiere> entry : ma.entrySet()) {
                 String key = entry.getKey();
-                System.out.println((j)+key +"-");
-                j = j+1;
+                System.out.println(key +"\n");
+                
             }
 
             int nombre_matiere = sc.nextInt();
