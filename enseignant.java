@@ -4,9 +4,9 @@ public class enseignant extends personne {
 	private int indice ;
 	private String  mat ;
 	private matiere  ma ;
- 
+	private static int check = 1;
 	public enseignant () {
-		super();
+		super(check);
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Donner le  date-prix-fonction ");
 		dpf=sc.nextInt();
@@ -15,18 +15,13 @@ public class enseignant extends personne {
 		System.out.println("Donner la matiere");
 		mat = sc.next();		
 	}
-	public String get_matieres() {
-		return mat;
+	public void ajout_notes(departement depa){
+		depa.ajout_notes(this.mat);
 	}
 	public void  aff() {
-		super.affiche();
+		super.affiche(check);
 		System.out.println("le prenom est "+dpf);
 		System.out.println("le prenom est "+indice);
 		
-	}
-
-	
-	public void ajout_notes(departement depa){
-		depa.ajout_notes(this.mat);
 	}
 }

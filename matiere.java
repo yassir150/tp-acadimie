@@ -3,7 +3,6 @@ import java.util.*;
 public class matiere {
     private String name;
     
-    
     public matiere() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Donner le nom de la matiere:");

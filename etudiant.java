@@ -1,15 +1,13 @@
 import java.util.*;
 
-
 public class etudiant extends personne {
 private int ae;
 private double moyenne;
-private  Vector<matiere> mat;
+private Vector<matiere> mat;
 private Vector<String> mat_name;
 private Vector<Double> note;
 
-
-public etudiant() {
+public etudiant( ) {
 		super();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Donner l'annee-entree :");
@@ -17,41 +15,30 @@ public etudiant() {
 		this.mat = new Vector<matiere>();
 		this.mat_name = new Vector<String>();
 		this.note = new Vector<Double>();
-		this.ajout_matiere();
+		
 		}
-	public void ajout_matiere(){
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Donner le nombre de matiere :");
-		int nombre_matiere = scanner.nextInt();
-		for(int i=0 ; i < nombre_matiere ;  i++){
-			System.out.println("Donner le nom de la matiere:");
-			String name = scanner.next();
-			matiere matiere = new matiere(name); 
-            mat.add(matiere);
-			mat_name.add(name);
 
-		}
-	}
-	public Vector<String> get_matieres(){
-		return mat_name;
+	public void set_matieres( matiere ma ){
+		this.mat.add(ma);
 	}
 
 	public void Affiche() {
 		super.affiche();
-		System.out.println("  l annee-entree est "+ae);
-		System.out.println("la moyenne est  "+moyenne);
+		moyenne = 0;
+		System.out.println("l annee-entree est "+ae);
 		for (int i = 0; i < note.size(); i++) {
-			System.out.println("note "+i+1+" est : "+note.get(i));
+			System.out.println("note "+(i+1)+" est : "+note.get(i));
+			moyenne = note.get(i)+moyenne;
 		}
+		System.out.println("la moyenne est  "+moyenne);
 	}
 	public void set_note() {
 		Scanner scanner = new Scanner(System.in);
+		System.err.println("donne la note /20:");
 		Double note = scanner.nextDouble();
 		this.note.add(note);
 	}
-	// public void set_matiere(){
-	// 	for (int i = 0; i < this.mat.size(); i++) {
-	// 		this.mat_name.add(this.mat.get(i).getName());
-	// 	}
-	// }
+	public double get_moyenne(){
+		return moyenne;
+	}
 }

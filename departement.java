@@ -5,14 +5,11 @@ public class departement {
     private String name;
     private String responsable;
     private Vector<etudiant> etu;
-    private Vector<etudiant> phy;
-    private Vector<etudiant> chi;
-    private Vector<etudiant> svt;
-    private Vector<etudiant> math;
     private Vector<enseignant> ens;
-    private Vector<matiere> ma;
-    // private Map<matiere, Vector<etudiant>> etu_de_ma;
-    
+    private HashMap<String, matiere>  ma;
+    private Map<String, Vector<etudiant>> etu_de_ma;
+
+
     public departement() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Donner le nom du departement ");
@@ -21,77 +18,76 @@ public class departement {
         responsable = sc.next();
         this.etu=new Vector<etudiant>();
         this.ens=new Vector<enseignant>();
-        this.ma=new Vector<matiere>();
-        this.math = new Vector<etudiant>();
-        this.phy = new Vector<etudiant>();
-        this.chi = new Vector<etudiant>();
-        this.svt = new Vector<etudiant>();
+        this.ma = new HashMap<String,matiere>();
+        etu_de_ma = new HashMap<String, Vector<etudiant>>();
+    }
 
-        // etu_de_ma = new HashMap<matiere, Vector<etudiant>>();
-    }
     public void ajout_matiere() {
-        matiere matiere = new matiere();
-        ma.add(matiere);
+        Scanner scanner = new Scanner(System.in);
+		System.out.println("Donner le nombre de matiere :");
+        int nombre_matiere = scanner.nextInt();
+		for(int i=0 ; i < nombre_matiere ;  i++){ 
+            System.out.println("Donner le nom de la matiere:");
+			name = scanner.next();
+            matiere mat = new matiere(name);
+            ma.put(name, mat);
+            Vector<etudiant> vect = new Vector<etudiant>();
+            etu_de_ma.put(name, vect);
+		}
+        
     }
+    
     public void ajout_etudiant() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Donner le nombre de etudiant :");
         int nombre_etudiant = sc.nextInt();
         for(int i=0 ; i < nombre_etudiant ;  i++){
-            etudiant etudiant = new etudiant(); 
+            etudiant etudiant = new etudiant();
             etu.add(etudiant);
-            this.ajout_etu_matiere(etudiant);
-        }
-    }
-    public void ajout_etu_matiere(etudiant etudiant) {
-        for (int i = 0; i < etudiant.get_matieres().size(); i++) {
-            switch (etudiant.get_matieres().get(i)) {
-                case "math":
-                    math.add(etudiant);
-                    break;
-                case "physique":
-                    phy.add(etudiant);
-                    break;
-                case "chimie":
-                    chi.add(etudiant);
-                    break;
-                case "svt":
-                    svt.add(etudiant);
-                    break;
-            
-            }
-        }
 
-    }
-    public void ajout_notes(String matiere){
-        switch (matiere) {
-            case "math":
-                    for (int i = 0; i < math.size(); i++) {
-                        math.get(i).set_note();
-                        
-                    }
-                    break;
-                case "physique":
-                    for (int i = 0; i < phy.size(); i++) {
-                        phy.get(i).set_note();
-                        
-                    }
-                    break;
-                case "chimie":
-                    for (int i = 0; i < chi.size(); i++) {
-                        chi.get(i).set_note();
-                        
-                    }
-                    break;
-                case "svt":
-                    for (int i = 0; i < svt.size(); i++) {
-                        svt.get(i).set_note();
-                        
-                    }
-                    break;
+            System.out.println("Donner le nombre de matiere :(max "+ma.size()+")");
+            // for(int j=0 ; j < ma.size() ;  i++){ 
+            //     String NAME = ma.get(i).getName();
+            //     System.out.println(NAME +"\n");
+                
+            // }
+            int j=1;
+            for (Map.Entry<String, matiere> entry : ma.entrySet()) {
+                String key = entry.getKey();
+                System.out.println((j)+key +"-");
+                j = j+1;
+            }
+
+            int nombre_matiere = sc.nextInt();
+            for (int n = 0; n < nombre_matiere; n++) {
+                System.out.println("donne le nom de matiere de l'etudiant : ");
+                String nomMATIRE = sc.next();
+                etu_de_ma.get(nomMATIRE).add(etudiant);
+                etudiant.set_matieres(ma.get(nomMATIRE));
+                
+            }
+            
+            
         }
     }
-    public Vector<etudiant> get_Etudiants(){
-        return etu;
+    
+    public void ajout_notes(String matiere){
+        for (int i = 0; i < etu_de_ma.get(matiere).size(); i++) {
+            etu_de_ma.get(matiere).get(0).set_note();
+        }
     }
+
+    public void calcul_moyenne(){
+        double moy =0;
+        for (int i = 0; i < etu.size(); i++) {
+            moy = moy+etu.get(i).get_moyenne();
+        }
+        System.out.println("la moyenne de departement est : " +moy/etu.size());
+    }
+    public void affiche_etu(){
+        for (int i = 0; i < etu.size(); i++) {
+            etu.get(i).Affiche();
+        }
+    }
+
 }
